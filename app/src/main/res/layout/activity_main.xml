@@ -57,6 +57,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/ToPage7"
             android:text="Preview"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ToPage8"
+            android:text="Video Live"/>
 
     </LinearLayout>
 

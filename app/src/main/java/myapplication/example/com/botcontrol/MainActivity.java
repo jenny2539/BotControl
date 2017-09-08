@@ -31,7 +31,7 @@ import myapplication.example.com.botcontrol.Fragment.PreviewFragment;
 import myapplication.example.com.botcontrol.Fragment.SecondFragment;
 import myapplication.example.com.botcontrol.Fragment.SixFragment;
 import myapplication.example.com.botcontrol.Fragment.ThirdFragment;
-
+import myapplication.example.com.botcontrol.Fragment.VideoLiveFragment;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button ToPage5;
     Button ToPage6;
     Button ToPage7;
+    Button ToPage8;
     BluetoothSPP bt;
     int keep = 0;
     byte[] dataOut2 = {(byte)255, 0, (byte)10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0};
@@ -195,6 +196,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ToPage6.setOnClickListener(this);
         ToPage7 = (Button) findViewById(R.id.ToPage7);
         ToPage7.setOnClickListener(this);
+        ToPage8 = (Button) findViewById(R.id.ToPage8);
+        ToPage8.setOnClickListener(this);
     }
 
     @Override
@@ -211,10 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item))
-            return true;
-        return super.onOptionsItemSelected(item);
-
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public void onAdapterDone()
@@ -226,8 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     dataOut2[2] = (byte)keep;
                     dataOut2[8] = (byte)1;
-                    int j = 0;
-                    j = i + 1;
+                    int j = i + 1;
                     dataOut2[9] = (byte)j;
 
                     dataOut2[12] = (byte)1;
@@ -345,5 +344,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "SevenPage", Toast.LENGTH_SHORT).show();
         }
 
+        if (v == ToPage8) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.contentContainer);
+
+            if (fragment instanceof VideoLiveFragment == false) {
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer,
+                                VideoLiveFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            Toast.makeText(MainActivity.this, "EightPage", Toast.LENGTH_SHORT).show();
+        }
     }
 }
