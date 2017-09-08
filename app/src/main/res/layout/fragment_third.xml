@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:gravity="center">
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/b1"
+            android:src="@drawable/b1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/b2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/b2"
+            android:scaleType="fitCenter"/>
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/b3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/b3"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#60b8ff">
+
+        <TextView
+
+            android:text="Eyebrows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye001"
+            android:scaleType="fitCenter">
+        </ImageButton>
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye002"
+            android:scaleType="fitCenter"/>
+        <ImageButton
+            android:id="@+id/eye03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:src="@drawable/eye003"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye004"
+            android:scaleType="fitCenter">
+        </ImageButton>
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye05"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye005"
+            android:scaleType="fitCenter"/>
+        <ImageButton
+            android:id="@+id/eye06"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:src="@drawable/eye006"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye07"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye007"
+            android:scaleType="fitCenter">
+        </ImageButton>
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/eye08"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/eye008"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#60b8ff">
+
+        <TextView
+            android:text="Eyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ToggleButton
+            android:id="@+id/redButton"
+            android:background="#f20404"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+
+        <ToggleButton
+            android:id="@+id/blueButton"
+            android:background="#0438f2"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+
+        <ToggleButton
+            android:id="@+id/greenButton"
+            android:background="#26b74d"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+    </LinearLayout>
+    <ToggleButton
+        android:id="@+id/allLight"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#60b8ff">
+
+        <TextView
+            android:text="Light Colors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

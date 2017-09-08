@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="myapplication.example.com.botcontrol.MainActivity">
+
+    <!--Content-->
+    <FrameLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+    <!--Menu-->
+    <LinearLayout
+        android:layout_gravity="start"
+        android:background="#b14716"
+        android:layout_width="@dimen/drawer_menu_width"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/ToPage1"
+            android:text="Home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/ToPage2"
+            android:text="Control Movement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/ToPage3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stimulation"/>
+        <Button
+            android:id="@+id/ToPage4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Image Selection"/>
+        <Button
+            android:id="@+id/ToPage5"
+            android:text="Messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/ToPage6"
+            android:text="Settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ToPage7"
+            android:text="Preview"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
