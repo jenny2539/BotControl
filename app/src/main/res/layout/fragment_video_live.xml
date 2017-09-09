@@ -2,11 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="myapplication.example.com.botcontrol.Fragment.VideoLiveFragment">
+    tools:context="myapplication.example.com.botcontrol.Fragment.VideoLiveFragment"
+    android:layout_margin="5dp">
 
-    <TextView
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello_video_live_fragment" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:text="Live! from Bliss" />
+        <VideoView
+            android:id="@+id/rtspVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--<Button-->
+            <!--android:id="@+id/playButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Play" />-->
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </FrameLayout>
