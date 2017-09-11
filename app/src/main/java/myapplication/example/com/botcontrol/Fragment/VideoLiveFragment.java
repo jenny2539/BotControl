@@ -1,16 +1,14 @@
 package myapplication.example.com.botcontrol.Fragment;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import myapplication.example.com.botcontrol.R;
@@ -53,38 +51,45 @@ public class VideoLiveFragment extends Fragment {
 
     private void initInstances(View rootView) {
         rtspVideo = (VideoView) rootView.findViewById(R.id.rtspVideo);
-        rtspVideo.setMediaController(new MediaController(getActivity()));
         rtspVideo.requestFocus();
-//        rtspVideo.setVideoURI(Uri.parse("rtsp://192.168.1.149:8554/"));
-        rtspVideo.setVideoURI(Uri.parse("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov"));
-//        rtspVideo.seekTo(0);
-        rtspVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.start();
-            }
-        });
+//        rtspVideo.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+//            @Override
+//            public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
+//                handleError(what);
+//                return true;
+//            }
+//        });
+//        rtspVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                mediaPlayer.start();
+//            }
+//        });
+        rtspVideo.setVideoURI(Uri.parse("http://192.168.1.149:9090/"));
+        rtspVideo.start();
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        rtspVideo.start();
-//    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        rtspVideo.stopPlayback();
-//    }
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-//        rtspVideo.start();
-        super.onPause();
+    private void handleError(int code) {
+        if(code == MediaPlayer.MEDIA_ERROR_IO) {
+            Toast.makeText(getContext(), "Error IO", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_MALFORMED) {
+            Toast.makeText(getContext(), "Error Malformed", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
+            Toast.makeText(getContext(), "Error not valid for progressive playback", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_SERVER_DIED) {
+            Toast.makeText(getContext(), "Error Server died", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_TIMED_OUT) {
+            Toast.makeText(getContext(), "Error Timed Out", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_UNKNOWN) {
+            Toast.makeText(getContext(), "Error Unknown", Toast.LENGTH_SHORT).show();
+        }
+        else if(code == MediaPlayer.MEDIA_ERROR_UNSUPPORTED) {
+            Toast.makeText(getContext(), "Error Unsupported", Toast.LENGTH_SHORT).show();
+        }
     }
 }

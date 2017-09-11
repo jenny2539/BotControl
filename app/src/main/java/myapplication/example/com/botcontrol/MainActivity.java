@@ -31,6 +31,7 @@ import myapplication.example.com.botcontrol.Fragment.PreviewFragment;
 import myapplication.example.com.botcontrol.Fragment.SecondFragment;
 import myapplication.example.com.botcontrol.Fragment.SixFragment;
 import myapplication.example.com.botcontrol.Fragment.ThirdFragment;
+import myapplication.example.com.botcontrol.Fragment.VideoLive2Fragment;
 import myapplication.example.com.botcontrol.Fragment.VideoLiveFragment;
 
 
@@ -347,11 +348,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == ToPage8) {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.contentContainer);
 
-            if (fragment instanceof VideoLiveFragment == false) {
+            if (fragment instanceof VideoLive2Fragment == false) {
 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer,
-                                VideoLiveFragment.newInstance())
+                                VideoLive2Fragment.newInstance())
                         .addToBackStack(null)
                         .commit();
             }

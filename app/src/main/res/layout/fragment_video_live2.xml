@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="myapplication.example.com.botcontrol.Fragment.VideoLiveFragment"
-    android:layout_margin="5dp">
+    tools:context="myapplication.example.com.botcontrol.Fragment.VideoLive2Fragment">
 
     <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,15 +15,10 @@
             android:gravity="center"
             android:textSize="26sp"
             android:text="Live! from Bliss" />
-        <VideoView
-            android:id="@+id/rtspVideo"
+        <SurfaceView
+            android:id="@+id/videoSurfaceView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <!--<Button-->
-            <!--android:id="@+id/playButton"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Play" />-->
     </android.support.v7.widget.LinearLayoutCompat>
 
 </FrameLayout>
