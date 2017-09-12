@@ -19,6 +19,13 @@
             android:id="@+id/videoSurfaceView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/prograssBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:progress="0"
+            android:max="100"/>
     </android.support.v7.widget.LinearLayoutCompat>
 
 </FrameLayout>

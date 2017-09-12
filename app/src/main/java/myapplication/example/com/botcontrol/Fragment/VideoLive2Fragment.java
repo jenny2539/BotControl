@@ -1,5 +1,6 @@
 package myapplication.example.com.botcontrol.Fragment;
 
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,16 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.videolan.libvlc.IVLCVout;
 import org.videolan.libvlc.LibVLC;
@@ -54,6 +66,8 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
     private View.OnLayoutChangeListener mOnLayoutChangeListener;
     private Handler mHandler = new Handler();
 
+    private ProgressBar prograssBar;
+
     public VideoLive2Fragment() {
         // Required empty public constructor
     }
@@ -92,7 +106,7 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
     private void initInstances(View rootView) {
         linearLayout = (LinearLayoutCompat) rootView.findViewById(R.id.linearLayout);
         mSurfaceView = (SurfaceView) rootView.findViewById(R.id.videoSurfaceView);
-
+        prograssBar = (ProgressBar) rootView.findViewById(R.id.prograssBar);
     }
 
     @Override
@@ -105,6 +119,8 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
 //        int sh = getWindow().getDecorView().getHeight();
         int sw = mSurfaceView.getWidth();
         int sh = mSurfaceView.getHeight();
+
+        Log.d(TAG, "mVideoWidth: " + mVideoWidth + " , mVideoHeight: " + mVideoHeight);
 
         // sanity check
         if (sw * sh == 0) {
@@ -176,65 +192,6 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
         mSurfaceView.invalidate();
     }
 
-//    private void changeMediaPlayerLayout(int displayW, int displayH) {
-//        /* Change the video placement using the MediaPlayer API */
-//        switch (CURRENT_SIZE) {
-//            case SURFACE_BEST_FIT:
-//                mMediaPlayer.setAspectRatio(null);
-//                mMediaPlayer.setScale(0);
-//                break;
-//            case SURFACE_FIT_SCREEN:
-//            case SURFACE_FILL: {
-//                Media.VideoTrack vtrack = mMediaPlayer.getCurrentVideoTrack();
-//                if (vtrack == null)
-//                    return;
-//                final boolean videoSwapped = vtrack.orientation == Media.VideoTrack.Orientation.LeftBottom
-//                        || vtrack.orientation == Media.VideoTrack.Orientation.RightTop;
-//                if (CURRENT_SIZE == SURFACE_FIT_SCREEN) {
-//                    int videoW = vtrack.width;
-//                    int videoH = vtrack.height;
-//
-//                    if (videoSwapped) {
-//                        int swap = videoW;
-//                        videoW = videoH;
-//                        videoH = swap;
-//                    }
-//                    if (vtrack.sarNum != vtrack.sarDen)
-//                        videoW = videoW * vtrack.sarNum / vtrack.sarDen;
-//
-//                    float ar = videoW / (float) videoH;
-//                    float dar = displayW / (float) displayH;
-//
-//                    float scale;
-//                    if (dar >= ar)
-//                        scale = displayW / (float) videoW; /* horizontal */
-//                    else
-//                        scale = displayH / (float) videoH; /* vertical */
-//                    mMediaPlayer.setScale(scale);
-//                    mMediaPlayer.setAspectRatio(null);
-//                } else {
-//                    mMediaPlayer.setScale(0);
-//                    mMediaPlayer.setAspectRatio(!videoSwapped ? ""+displayW+":"+displayH
-//                            : ""+displayH+":"+displayW);
-//                }
-//                break;
-//            }
-//            case SURFACE_16_9:
-//                mMediaPlayer.setAspectRatio("16:9");
-//                mMediaPlayer.setScale(0);
-//                break;
-//            case SURFACE_4_3:
-//                mMediaPlayer.setAspectRatio("4:3");
-//                mMediaPlayer.setScale(0);
-//                break;
-//            case SURFACE_ORIGINAL:
-//                mMediaPlayer.setAspectRatio(null);
-//                mMediaPlayer.setScale(1);
-//                break;
-//        }
-//    }
-
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -249,9 +206,48 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
         mLibVLC.release();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    public void sendStartStream() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url ="http://blissbot:8888/start";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "response = " + response);
+                    if("start stream".equalsIgnoreCase(response.trim()) || "nothing".equalsIgnoreCase(response.trim())) {
+                        Log.d(TAG, "start handler");
+                        final Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Do something after 5s = 5000ms
+                                Log.d(TAG, "start video");
+                                startVideo();
+                                prograssBar.setVisibility(View.GONE);
+                            }
+                        }, 5000);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error: Couldn't start video", Toast.LENGTH_LONG).show();
+                }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(prograssBar, "progress", 10);
+        animation.setDuration(500); // 0.5 second
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+    }
+
+    private void startVideo() {
         vlcVout.setVideoView(mSurfaceView);
         vlcVout.attachViews();
         Media media = new Media(mLibVLC, Uri.parse(VIDEO_URL));
@@ -280,14 +276,47 @@ public class VideoLive2Fragment extends Fragment implements IVLCVout.Callback {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onStart() {
+        super.onStart();
+        sendStartStream();
+    }
+
+    void sendStopStream() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url ="http://blissbot:8888/stop";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do nothing
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sendStopStream();
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void stopVideo() {
         if (mOnLayoutChangeListener != null) {
             linearLayout.removeOnLayoutChangeListener(mOnLayoutChangeListener);
             mOnLayoutChangeListener = null;
         }
         mMediaPlayer.stop();
         mMediaPlayer.getVLCVout().detachViews();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopVideo();
+        sendStopStream();
     }
 
     @Override
